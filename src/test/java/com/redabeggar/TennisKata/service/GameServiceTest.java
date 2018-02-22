@@ -38,16 +38,14 @@ public class GameServiceTest {
 		
 		assertThat(game.isDeuce()).isEqualTo(false);
 		assertThat(game.hasWinner()).isEqualTo(false);
-		assertThat(gameService.dispalyScore()).isEqualTo("Game Score : Nadal vs Reda : Love all");
-		
+		assertThat(gameService.getScore()).isEqualTo("Game Score : Nadal vs Reda : Love all");
 	}
 	
 	@Test
 	public void should_return_player_one_wins_first_ball() {
 		
 		gameService.playerScores(nadal);
-		assertThat(gameService.dispalyScore()).isEqualTo("Game Score : Nadal vs Reda : Fifteen,Love");
-		
+		assertThat(gameService.getScore()).isEqualTo("Game Score : Nadal vs Reda : Fifteen,Love");
 	}
 	
 	@Test
@@ -55,58 +53,47 @@ public class GameServiceTest {
 		
 		gameService.playerScores(nadal);
 		gameService.playerScores(reda);
-		assertThat(gameService.dispalyScore()).isEqualTo("Game Score : Nadal vs Reda : Fifteen all");
-		
+		assertThat(gameService.getScore()).isEqualTo("Game Score : Nadal vs Reda : Fifteen all");
 	}
 	
 	@Test
 	public void should_return_player_two_wins_first_two_ball() {
 		
 		createScore(0,2);
-		assertThat(gameService.dispalyScore()).isEqualTo("Game Score : Nadal vs Reda : Love,Thirty");
-		
+		assertThat(gameService.getScore()).isEqualTo("Game Score : Nadal vs Reda : Love,Thirty");
 	}
 	
 	@Test
 	public void should_return_players_are_deuce() {
 		
 		createScore(3,3);
-		assertThat(gameService.dispalyScore()).isEqualTo("Deuce");
-		
+		assertThat(gameService.getScore()).isEqualTo("Deuce");	
 	}
 	
 	@Test
 	public void should_return_player_two_has_advantage() {
 		
 		createScore(3,4);
-		assertThat(gameService.dispalyScore()).isEqualTo("Advantage Reda");
-		
+		assertThat(gameService.getScore()).isEqualTo("Advantage Reda");
 	}
 	
 	@Test
 	public void should_return_players_are_deuce_for_the_second_time() {
 		
 		createScore(4,4);
-		assertThat(gameService.dispalyScore()).isEqualTo("Deuce");
-		
+		assertThat(gameService.getScore()).isEqualTo("Deuce");
 	}
 	
 	@Test
 	public void should_return_player_one_wins_the_game() {
 		
 		createScore(6,4);
-		assertThat(gameService.dispalyScore()).isEqualTo("Nadal wins");
-		
+		assertThat(gameService.getScore()).isEqualTo("Nadal wins");
 	}
 	
 	
-	
-	
-	
-	
-	
-	
 	private void createScore(int playerOneBalls, int playerTwoBalls ) {
+		
 		IntStream.rangeClosed(1, playerOneBalls).forEach((Integer) -> {
     		gameService.playerScores(nadal);
         });

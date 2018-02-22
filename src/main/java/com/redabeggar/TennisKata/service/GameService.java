@@ -1,15 +1,20 @@
 package com.redabeggar.TennisKata.service;
 
+import org.springframework.stereotype.Service;
+
 import com.redabeggar.TennisKata.model.Game;
 import com.redabeggar.TennisKata.model.Player;
 
-public class GameService {
+@Service
+public class GameService implements IGameService {
 
 	private Game game;
 	private Player first_player;
 	private Player second_player;
 	private String display_score_message;
-
+	
+	
+	@Override
 	public void initialize(Game game) {
 
 		this.game = game;
@@ -19,7 +24,8 @@ public class GameService {
 		                        +" vs "+second_player.getName()+ " : ";
 	}
 
-	public String dispalyScore() {
+	@Override
+	public String getScore() {
 
 		if (hasWinner()) {
 			return playerWithHighestScore() + " wins";
@@ -43,7 +49,8 @@ public class GameService {
 		return first_player.getGameScore() >= 3 && first_player.getGameScore() == second_player.getGameScore();
 	}
 
-	private String playerWithHighestScore() {
+	@Override
+	public String playerWithHighestScore() {
 		if (first_player.getGameScore() > second_player.getGameScore()) {
 			game.setPlayerWithHighestScore(first_player.getName());
 			return first_player.getName();
@@ -53,7 +60,8 @@ public class GameService {
 		}
 	}
 
-	private boolean hasWinner() {
+	@Override
+	public boolean hasWinner() {
 		if (second_player.getGameScore() >= 4 && second_player.getGameScore() >= first_player.getGameScore() + 2) {
 			game.setWinner(true);
 			return true;
@@ -83,11 +91,13 @@ public class GameService {
 
 	}
 
+	@Override
 	public void playerScores(Player player) {
 		player.scoreAGamePoint();
 	}
 
-	private String translateScore(int score) {
+	@Override
+	public String translateScore(int score) {
 		switch (score) {
 		case 3:
 			return "Forty";
