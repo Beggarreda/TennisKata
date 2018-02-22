@@ -6,7 +6,7 @@ import com.redabeggar.TennisKata.model.Game;
 import com.redabeggar.TennisKata.model.Player;
 
 @Service
-public class GameService implements IGameService {
+public class TennisGameService implements ITennisGameService {
 
 	private Game game;
 	private Player first_player;
@@ -51,13 +51,7 @@ public class GameService implements IGameService {
 
 	@Override
 	public String playerWithHighestScore() {
-		if (first_player.getGameScore() > second_player.getGameScore()) {
-			game.setPlayerWithHighestScore(first_player.getName());
-			return first_player.getName();
-		} else {
-			game.setPlayerWithHighestScore(second_player.getName());
-			return second_player.getName();
-		}
+		return (first_player.getGameScore() > second_player.getGameScore()) ? first_player.getName() : second_player.getName();
 	}
 
 	@Override

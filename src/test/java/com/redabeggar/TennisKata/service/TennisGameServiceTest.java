@@ -14,11 +14,11 @@ import com.redabeggar.TennisKata.model.Game;
 import com.redabeggar.TennisKata.model.Player;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GameServiceTest {
+public class TennisGameServiceTest {
 	
 	
 	@InjectMocks
-	GameService gameService;
+	TennisGameService tennisGameService;
 	
 	
 	private Player nadal;
@@ -30,7 +30,7 @@ public class GameServiceTest {
 		nadal = new Player("Nadal");
 		reda = new Player("Reda");
 	    game = new Game(nadal,reda);
-	    gameService.initialize(game);
+	    tennisGameService.initialize(game);
 	}
 	
 	@Test
@@ -38,68 +38,68 @@ public class GameServiceTest {
 		
 		assertThat(game.isDeuce()).isEqualTo(false);
 		assertThat(game.hasWinner()).isEqualTo(false);
-		assertThat(gameService.getScore()).isEqualTo("Game Score : Nadal vs Reda : Love all");
+		assertThat(tennisGameService.getScore()).isEqualTo("Game Score : Nadal vs Reda : Love all");
 	}
 	
 	@Test
 	public void should_return_player_one_wins_first_ball() {
 		
-		gameService.playerScores(nadal);
-		assertThat(gameService.getScore()).isEqualTo("Game Score : Nadal vs Reda : Fifteen,Love");
+		tennisGameService.playerScores(nadal);
+		assertThat(tennisGameService.getScore()).isEqualTo("Game Score : Nadal vs Reda : Fifteen,Love");
 	}
 	
 	@Test
 	public void should_return_score_fifteen_all() {
 		
-		gameService.playerScores(nadal);
-		gameService.playerScores(reda);
-		assertThat(gameService.getScore()).isEqualTo("Game Score : Nadal vs Reda : Fifteen all");
+		tennisGameService.playerScores(nadal);
+		tennisGameService.playerScores(reda);
+		assertThat(tennisGameService.getScore()).isEqualTo("Game Score : Nadal vs Reda : Fifteen all");
 	}
 	
 	@Test
 	public void should_return_player_two_wins_first_two_ball() {
 		
 		createScore(0,2);
-		assertThat(gameService.getScore()).isEqualTo("Game Score : Nadal vs Reda : Love,Thirty");
+		assertThat(tennisGameService.getScore()).isEqualTo("Game Score : Nadal vs Reda : Love,Thirty");
 	}
 	
 	@Test
 	public void should_return_players_are_deuce() {
 		
 		createScore(3,3);
-		assertThat(gameService.getScore()).isEqualTo("Deuce");	
+		assertThat(tennisGameService.getScore()).isEqualTo("Deuce");	
 	}
 	
 	@Test
 	public void should_return_player_two_has_advantage() {
 		
 		createScore(3,4);
-		assertThat(gameService.getScore()).isEqualTo("Advantage Reda");
+		assertThat(tennisGameService.getScore()).isEqualTo("Advantage Reda");
 	}
 	
 	@Test
 	public void should_return_players_are_deuce_for_the_second_time() {
 		
 		createScore(4,4);
-		assertThat(gameService.getScore()).isEqualTo("Deuce");
+		assertThat(tennisGameService.getScore()).isEqualTo("Deuce");
 	}
 	
 	@Test
 	public void should_return_player_one_wins_the_game() {
 		
 		createScore(6,4);
-		assertThat(gameService.getScore()).isEqualTo("Nadal wins");
+		assertThat(tennisGameService.getScore()).isEqualTo("Nadal wins");
 	}
 	
 	
 	private void createScore(int playerOneBalls, int playerTwoBalls ) {
 		
 		IntStream.rangeClosed(1, playerOneBalls).forEach((Integer) -> {
-    		gameService.playerScores(nadal);
+    		tennisGameService.playerScores(nadal);
         });
 		
 		IntStream.rangeClosed(1, playerTwoBalls).forEach((Integer) -> {
-    		gameService.playerScores(reda);
+    		tennisGameService.playerScores(reda);
         });
 	}
 	

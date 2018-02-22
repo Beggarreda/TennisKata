@@ -12,6 +12,7 @@ public class Player {
 	private String name;
 	private int gameScore ;
 	private int setScore;
+	private int matchScore;
 	private int tiebreakScore;
 
 	public Player(String name) {
@@ -38,7 +39,7 @@ public class Player {
 		return setScore;
 	}
 
-	public void WinASet() {
+	public void WinAGame() {
 		this.setScore++;
 	}
 
@@ -49,6 +50,15 @@ public class Player {
 	public void scoreATiebreakPoint() {
 		this.tiebreakScore++;
 	}
+
+	public int getMatchScore() {
+		return matchScore;
+	}
+
+	public void winASet(int matchScore) {
+		this.matchScore++;
+	}
+	
 	
 	
 	

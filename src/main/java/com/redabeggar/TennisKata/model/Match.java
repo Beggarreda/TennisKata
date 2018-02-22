@@ -6,7 +6,7 @@ public class Match {
 	
 	private Player first_player; 
 	private Player second_player; 
-	private ArrayList<Set> sets;
+	private ArrayList<TennisSet> sets;
 	
 	public Match(Player first_player, Player second_player) {
 		

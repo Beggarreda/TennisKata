@@ -3,7 +3,7 @@ package com.redabeggar.TennisKata.service;
 import com.redabeggar.TennisKata.model.Game;
 import com.redabeggar.TennisKata.model.Player;
 
-public interface IGameService {
+public interface ITennisGameService {
 
 	public void initialize(Game game);
 
