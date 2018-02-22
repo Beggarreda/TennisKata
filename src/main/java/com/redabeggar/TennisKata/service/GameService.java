@@ -1,0 +1,104 @@
+package com.redabeggar.TennisKata.service;
+
+import com.redabeggar.TennisKata.model.Game;
+import com.redabeggar.TennisKata.model.Player;
+
+public class GameService {
+
+	private Game game;
+	private Player first_player;
+	private Player second_player;
+	private String display_score_message;
+
+	public void initialize(Game game) {
+
+		this.game = game;
+		this.first_player = game.getFirst_player();
+		this.second_player = game.getSecond_player();
+		this.display_score_message = "Game Score : "+first_player.getName()
+		                        +" vs "+second_player.getName()+ " : ";
+	}
+
+	public String dispalyScore() {
+
+		if (hasWinner()) {
+			return playerWithHighestScore() + " wins";
+		}
+
+		if (hasAdvantage()) {
+			return "Advantage " + playerWithHighestScore();
+		}
+
+		if (isDeuce())
+			return "Deuce";
+
+		if (first_player.getGameScore() == second_player.getGameScore()) {
+			return display_score_message+translateScore(first_player.getGameScore()) + " all";
+		}
+
+		return display_score_message+translateScore(first_player.getGameScore()) + "," + translateScore(second_player.getGameScore());
+	}
+
+	private boolean isDeuce() {
+		return first_player.getGameScore() >= 3 && first_player.getGameScore() == second_player.getGameScore();
+	}
+
+	private String playerWithHighestScore() {
+		if (first_player.getGameScore() > second_player.getGameScore()) {
+			game.setPlayerWithHighestScore(first_player.getName());
+			return first_player.getName();
+		} else {
+			game.setPlayerWithHighestScore(second_player.getName());
+			return second_player.getName();
+		}
+	}
+
+	private boolean hasWinner() {
+		if (second_player.getGameScore() >= 4 && second_player.getGameScore() >= first_player.getGameScore() + 2) {
+			game.setWinner(true);
+			return true;
+		}
+
+		if (first_player.getGameScore() >= 4 && first_player.getGameScore() >= second_player.getGameScore() + 2) {
+			game.setWinner(true);
+			return true;
+		}
+		game.setWinner(false);
+		return false;
+	}
+
+	private boolean hasAdvantage() {
+		if (second_player.getGameScore() >= 4 && second_player.getGameScore() == first_player.getGameScore() + 1) {
+			game.setAdvantage(true);
+			return true;
+		}
+
+		if (first_player.getGameScore() >= 4 && first_player.getGameScore() == second_player.getGameScore() + 1) {
+			game.setAdvantage(true);
+			return true;
+		}
+
+		game.setAdvantage(false);
+		return false;
+
+	}
+
+	public void playerScores(Player player) {
+		player.scoreAGamePoint();
+	}
+
+	private String translateScore(int score) {
+		switch (score) {
+		case 3:
+			return "Forty";
+		case 2:
+			return "Thirty";
+		case 1:
+			return "Fifteen";
+		case 0:
+			return "Love";
+		}
+		throw new IllegalArgumentException("Illegal score: " + score);
+	}
+
+}

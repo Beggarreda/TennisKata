@@ -26,10 +26,5 @@ public class TennisKataIntegrationsTests {
 		match = new Match(nadal,reda);
 	}
 	
-	@Test
-	public void fisrt_test() {
-		
-		
-		
-	}
+	
 }
