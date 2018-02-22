@@ -3,18 +3,12 @@ package com.redabeggar.TennisKata.service;
 import com.redabeggar.TennisKata.model.Game;
 import com.redabeggar.TennisKata.model.Player;
 
-public interface ITennisGameService {
+public interface ITennisGameService extends ITennisManager<Game> {
 
-	public void initialize(Game game);
+	void playerScores(Player player);
 
-	public String getScore();
-
-	public String playerWithHighestScore();
-
-	public boolean hasWinner();
-
-	public void playerScores(Player player);
-
-	public String translateScore(int score);
+	boolean hasAdvantage();
+	
+	String translateScore(int score);
 
 }

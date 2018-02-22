@@ -5,7 +5,7 @@ import com.redabeggar.TennisKata.model.Player;
 import com.redabeggar.TennisKata.model.TennisSet;
 import com.redabeggar.TennisKata.model.Tiebreak;
 
-public class TennisSetService {
+public class TennisSetService implements ITennisSetService {
 
 	private TennisSet tennisSet;
 	private Game game;
@@ -14,6 +14,7 @@ public class TennisSetService {
 	private Player second_player;
 	private String display_score_message;
 
+	@Override
 	public void initialize(TennisSet tennisSet) {
 		this.tennisSet = tennisSet;
 		this.game = tennisSet.getGame();
@@ -24,6 +25,10 @@ public class TennisSetService {
 				+ " : ";
 	}
 
+	/* (non-Javadoc)
+	 * @see com.redabeggar.TennisKata.service.ITennisSetService#getScore()
+	 */
+	@Override
 	public String getScore() {
 		if (hasWinner()) {
 			return playerWithHighestScore().getName() + " wins";
@@ -36,38 +41,48 @@ public class TennisSetService {
 		return display_score_message + first_player.getSetScore() + " - " + second_player.getSetScore();
 	}
 
+	@Override
 	public boolean hasWinner() {
-		if (scoreDifference() == 2 && playerWithHighestScore().getSetScore() >= 6)
+		if (scoreDifference() == 2 && playerWithHighestScore().getSetScore() >= 6) {
+			tennisSet.setWinner(true);
 			return true;
-
-		if (tiebreak != null)
-			if (tiebreak.hasWinner())
+		}
+	
+		if(isInTiebreak())
+		if (tiebreak.hasWinner())
 				return true;
 
 		return false;
 
 	}
 
-	private int scoreDifference() {
+	@Override
+	public int scoreDifference() {
 		return Math.abs(first_player.getSetScore() - second_player.getSetScore());
 	}
 
+	@Override
 	public Player playerWithHighestScore() {
 		return (first_player.getSetScore() > second_player.getSetScore()) ? first_player : second_player;
 	}
 	
+	@Override
 	public void playerWinAGame(Player player) {
 		player.WinAGame();
 	}
 
-	private String getTiebreakScore() {
+	@Override
+	public String getTiebreakScore() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private boolean isInTiebreak() {
+	@Override
+	public boolean isInTiebreak() {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	
 
 }
