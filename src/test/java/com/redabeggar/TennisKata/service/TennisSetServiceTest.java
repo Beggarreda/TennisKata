@@ -2,14 +2,12 @@ package com.redabeggar.TennisKata.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyObject;
 
 import java.util.stream.IntStream;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -17,7 +15,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.redabeggar.TennisKata.model.Game;
 import com.redabeggar.TennisKata.model.Player;
 import com.redabeggar.TennisKata.model.TennisSet;
-import com.redabeggar.TennisKata.model.Tiebreak;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TennisSetServiceTest {
@@ -32,7 +29,6 @@ public class TennisSetServiceTest {
 	private Player reda;
 	private Game game;
 	private TennisSet tennisSet;
-	private Tiebreak tiebeak;
 
 	@Before
 	public void setUp() {
@@ -41,7 +37,6 @@ public class TennisSetServiceTest {
 		game = new Game(nadal, reda);
 		tennisSet = new TennisSet(game);
 		tennisSetService.initialize(tennisSet);
-		tiebeak = new Tiebreak(tennisSet);
 	}
 
 	@Test

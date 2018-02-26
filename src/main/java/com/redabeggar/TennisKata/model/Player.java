@@ -55,7 +55,7 @@ public class Player {
 		return matchScore;
 	}
 
-	public void winASet(int matchScore) {
+	public void winASet() {
 		this.matchScore++;
 	}
 

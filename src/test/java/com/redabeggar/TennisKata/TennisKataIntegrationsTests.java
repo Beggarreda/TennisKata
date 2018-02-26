@@ -1,7 +1,6 @@
 package com.redabeggar.TennisKata;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -23,7 +22,7 @@ public class TennisKataIntegrationsTests {
 	public void setUp() {
 		nadal = new Player("Nadal");
 		reda = new Player("Reda");
-		match = new Match(nadal,reda);
+		match = new Match(nadal,reda,3);
 	}
 	
 	
