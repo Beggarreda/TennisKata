@@ -17,7 +17,7 @@ public class TennisSetService implements ITennisSetService {
 	private String display_score_message;
 	
 	@Autowired
-	TennisTiebreakService tennisTiebreakService;
+	ITennisTiebreakService tennisTiebreakService;
 
 	@Override
 	public void initialize(TennisSet tennisSet) {
