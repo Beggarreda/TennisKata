@@ -44,7 +44,7 @@ public class TennisSetService implements ITennisSetService {
 
 	@Override
 	public boolean hasWinner() {
-		if (scoreDifference() == 2 && playerWithHighestScore().getSetScore() >= 6) {
+		if (scoreDifference() >= 2 && playerWithHighestScore().getSetScore() >= 6) {
 			tennisSet.setWinner(true);
 			return true;
 		}
@@ -80,16 +80,17 @@ public class TennisSetService implements ITennisSetService {
 	@Override
 	public boolean isInTiebreak() {
 		if (first_player.getGameScore() == 6 && first_player.getGameScore() == second_player.getGameScore()) {
-			tennisTiebreakService.initialize();
+			tennisTiebreakService.initialize(createATiebreak());
 			return true;
 		}
 		return false;
 
 	}
 
-	private void createATiebreak() {
-		this.tiebreak = new Tiebreak();
-		this.tennisSet.setTiebreak(tiebreak);
+	private Tiebreak createATiebreak() {
+		this.tiebreak = new Tiebreak(this.tennisSet);
+		this.tennisSet.setTiebreak(this.tiebreak);
+		return this.tiebreak;
 	}
 
 }
