@@ -79,7 +79,7 @@ public class TennisSetService implements ITennisSetService {
 
 	@Override
 	public boolean isInTiebreak() {
-		if (first_player.getGameScore() == 6 && first_player.getGameScore() == second_player.getGameScore()) {
+		if (first_player.getSetScore() == 6 && first_player.getSetScore() == second_player.getSetScore()) {
 			tennisTiebreakService.initialize(createATiebreak());
 			return true;
 		}
