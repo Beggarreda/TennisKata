@@ -1,5 +1,7 @@
 package com.redabeggar.TennisKata.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.redabeggar.TennisKata.model.Game;
 import com.redabeggar.TennisKata.model.Player;
 import com.redabeggar.TennisKata.model.TennisSet;
@@ -13,6 +15,9 @@ public class TennisSetService implements ITennisSetService {
 	private Player first_player;
 	private Player second_player;
 	private String display_score_message;
+	
+	@Autowired
+	TennisTiebreakService tennisTiebreakService;
 
 	@Override
 	public void initialize(TennisSet tennisSet) {
@@ -21,13 +26,9 @@ public class TennisSetService implements ITennisSetService {
 		this.tiebreak = tennisSet.getTiebreak();
 		this.first_player = game.getFirst_player();
 		this.second_player = game.getSecond_player();
-		this.display_score_message = "Set Score : " + first_player.getName() + " vs " + second_player.getName()
-				+ " : ";
+		this.display_score_message = "Set Score : " + first_player.getName() + " vs " + second_player.getName() + " : ";
 	}
 
-	/* (non-Javadoc)
-	 * @see com.redabeggar.TennisKata.service.ITennisSetService#getScore()
-	 */
 	@Override
 	public String getScore() {
 		if (hasWinner()) {
@@ -47,9 +48,9 @@ public class TennisSetService implements ITennisSetService {
 			tennisSet.setWinner(true);
 			return true;
 		}
-	
-		if(isInTiebreak())
-		if (tiebreak.hasWinner())
+
+		if (isInTiebreak())
+			if (tennisTiebreakService.hasWinner())
 				return true;
 
 		return false;
@@ -65,7 +66,7 @@ public class TennisSetService implements ITennisSetService {
 	public Player playerWithHighestScore() {
 		return (first_player.getSetScore() > second_player.getSetScore()) ? first_player : second_player;
 	}
-	
+
 	@Override
 	public void playerWinAGame(Player player) {
 		player.WinAGame();
@@ -73,16 +74,22 @@ public class TennisSetService implements ITennisSetService {
 
 	@Override
 	public String getTiebreakScore() {
-		// TODO Auto-generated method stub
-		return null;
+		return tennisTiebreakService.getScore();
 	}
 
 	@Override
 	public boolean isInTiebreak() {
-		// TODO Auto-generated method stub
+		if (first_player.getGameScore() == 6 && first_player.getGameScore() == second_player.getGameScore()) {
+			tennisTiebreakService.initialize();
+			return true;
+		}
 		return false;
+
 	}
 
-	
+	private void createATiebreak() {
+		this.tiebreak = new Tiebreak();
+		this.tennisSet.setTiebreak(tiebreak);
+	}
 
 }

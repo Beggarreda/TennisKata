@@ -58,6 +58,24 @@ public class Player {
 	public void winASet(int matchScore) {
 		this.matchScore++;
 	}
+
+	public void setGameScore(int gameScore) {
+		this.gameScore = gameScore;
+	}
+
+	public void setSetScore(int setScore) {
+		this.setScore = setScore;
+	}
+
+	public void setMatchScore(int matchScore) {
+		this.matchScore = matchScore;
+	}
+
+	public void setTiebreakScore(int tiebreakScore) {
+		this.tiebreakScore = tiebreakScore;
+	}
+	
+	
 	
 	
 	
