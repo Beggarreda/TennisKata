@@ -20,8 +20,7 @@ public class TennisMatchServiceTest {
 	@InjectMocks
 	TennisMatchService tennisMatchService;
 	
-	@Mock
-	TennisSetService tennisSetService;
+	
 
 	private Player nadal;
 	private Player reda;

@@ -1,26 +1,22 @@
 package com.redabeggar.TennisKata.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.redabeggar.TennisKata.model.Game;
 import com.redabeggar.TennisKata.model.Match;
 import com.redabeggar.TennisKata.model.Player;
 import com.redabeggar.TennisKata.model.TennisSet;
 import com.redabeggar.TennisKata.model.Tiebreak;
 
-public class TennisMatchService implements ITennisManager<Match> {
+public class TennisMatchService implements ITennisMatchService {
 
+//	private TennisSet tennisSet;
+//	private Game game;
+//	private Tiebreak tiebreak;
 	private Match match;
-	private TennisSet tennisSet;
-	private Game game;
-	private Tiebreak tiebreak;
 	private Player first_player;
 	private Player second_player;
 	private String display_score_message;
 
-	@Autowired
-	ITennisTiebreakService tennisTiebreakService;
-
+	
 	@Override
 	public void initialize(Match match) {
 		this.match = match;
@@ -60,7 +56,8 @@ public class TennisMatchService implements ITennisManager<Match> {
 		return false;
 
 	}
-	
+
+	@Override
 	public void PlayerWinASet(Player player) {
 		player.winASet();		
 	}
